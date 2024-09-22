@@ -4,8 +4,8 @@ import math
 class RSA:
     def __init__(self, key_size):
         while True:
-            self.p = self.generate_prime(key_size // 2)
-            self.q = self.generate_prime(key_size // 2)
+            self.p = self.generate_prime(key_size // 16)
+            self.q = self.generate_prime(key_size // 16)
             self.n = self.p * self.q
             self.phi_n = self.eulers_totient(self.p, self.q)
             self.e = 65537 #65537 is frequently used as the public key
@@ -84,9 +84,9 @@ class RSA:
         m = pow(c, self.d, self.n)
         return m
 
-
-rsa = RSA(256)
+key_length = int(input("Enter key length (usually 2048): "))
 original = int(input("Enter number to be encrypted: "))
+rsa = RSA(key_length)
 
 ciphertext = rsa.encrypt(original)
 print("Encrypted: " + str(ciphertext))
